@@ -17,6 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^charts/', include('getcsv.urls')),
+    url(r'^charts/', include('getcsv.urls'), name='get_csv'),
+    url(r'^charts/pie_chart_v1', include('getcsv.urls')),
+    url(r'^charts/donut_chart_v1', include('getcsv.urls')),
+    url(r'^charts/pie_chart_v2', include('getcsv.urls')),
+    url(r'^charts/donut_chart_v2', include('getcsv.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]

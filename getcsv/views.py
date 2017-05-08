@@ -4,6 +4,8 @@
 
 import csv
 from django.http import HttpResponse
+from django.shortcuts import render
+
 
 def get_csv(request):
     response = HttpResponse(content_type='text/csv')
@@ -27,5 +29,20 @@ def get_csv(request):
     writer.writerow(['Qpf', 34.40])
     writer.writerow(['Qphf', 42.30])
 
-
     return response
+
+
+def pie_chart_v1(request):
+    return render(request, 'pie_chart_v1.html')
+
+
+def donut_chart_v1(request):
+    return render(request, 'donut_chart_v1.html')
+
+
+def pie_chart_v2(request):
+    return render(request, 'pie_chart_v2.html')
+
+
+def donut_chart_v2(request):
+    return render(request, 'donut_chart_v2.html')
