@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chart</title>
+</head>
+<link rel="stylesheet" type="text/css" href="/static/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<body>
+<h2>Create your custom graph</h2>
+<p>Step 1 - Choose a layer</p>
+<div class="dropdown">
+    <button class="dropbtn">Layers list</button>
+        <div id="myDropdown1" class="dropdown-content">
+            {% for layer in layer_list %}
+            <a>{{ layer }}</a>
+            {% endfor %}
+        </div>
+</div>
+<p>Step 2 - Choose a value field</p>
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Value field list</button>
+        <div id="myDropdown2" class="dropdown-content">
+            <a href="#field1">Field 1</a>
+            <a href="#field2">Field 2</a>
+        </div>
+</div>
+<p>Step 3 - Choose a label field</p>
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Label field list</button>
+        <div id="myDropdown3" class="dropdown-content">
+            <a href="#field1">Field 1</a>
+            <a href="#field2">Field 2</a>
+        </div>
+</div>
+<p>Step 4 - Choose a chart type</p>
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Chart type list</button>
+        <div id="myDropdown4" class="dropdown-content">
+            <a href="#piechart">Pie Chart</a>
+            <a href="#donutchart">Donut Chart</a>
+            <a href="#donutchart">Bar Chart</a>
+        </div>
+</div>
+<script>
+$(document).ready(function(){
+    //show drop down menu
+    $("button").click(function(){
+        $('[id^="myDropdown1"]').slideDown();
+    });
+
+    // hide dropdown menu
+    $(".dropdown-content").mouseleave(function(){
+        $('[id^="myDropdown1"]').hide();
+    });
+});
+
+    window.onclick = function(event){
+        if (!event.target.matches('.dropbtn')){
+            var dropdowns =  document.getElementByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++){
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')){
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

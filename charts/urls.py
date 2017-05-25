@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^charts/donut_chart_v1', include('getcsv.urls')),
     url(r'^charts/pie_chart_v2', include('getcsv.urls')),
     url(r'^charts/donut_chart_v2', include('getcsv.urls')),
+    url(r'^charts/Chart', include('getcsv.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]

@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 
+
 def get_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="table.csv"'
@@ -71,4 +72,10 @@ def pie_chart_v2(request):
 
 
 def donut_chart_v2(request):
-    return render(request, 'donut_chart_v2.html')
+        return render(request, 'donut_chart_v2.html')
+
+
+def chart(request):
+    list_layers = ['sample_csv', 'sample_csv_agg']
+    context = {'layer_list': list_layers}
+    return render(request, 'Chart.html', context)
