@@ -31,7 +31,7 @@ var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 var pie = d3.pie()
     .sort(null)
-    .value(function(d) { return d.area; });
+    .value(function(d) { return d.{{ quantity }}; });
 
 var path = d3.arc()
     .outerRadius(radius - 10)
@@ -42,7 +42,7 @@ var label = d3.arc()
     .innerRadius(radius - 40);
 
 
-d3.csv("{% url "get_csv" %}", function(d) {
+d3.csv("/table?lyrname={{ lyrname }}&category={{ category }}&quantity={{ quantity }}", function(d) {
   d.area = +d.area;
   if (d.area !== 0) {
   return d;}
@@ -56,12 +56,12 @@ d3.csv("{% url "get_csv" %}", function(d) {
 
   arc.append("path")
       .attr("d", path)
-      .attr("fill", function(d) { return color(d.data.name); });
+      .attr("fill", function(d) { return color(d.data.{{ category }}); });
 
   arc.append("text")
       .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
       .attr("dy", "0.35em")
-      .text(function(d) { return d.data.name; });
+      .text(function(d) { return d.data.{{ category }}; });
 });
 
 </script>

@@ -15,12 +15,12 @@
     </select>
     <br>
     <br>
-    <a href="/table?lyrname={{ lyrname }}" id="link">Build Chart</a>
+    <a href="/charts/pie_chart_v2?lyrname={{ lyrname }}" id="link">Build Chart</a>
 </form>
 <script>
 function update_link()
     {
-    var url = '/table?lyrname={{ lyrname }}';
+    var url = '/charts/pie_chart_v2?lyrname={{ lyrname }}';
     url = url + '&category=' + document.f.category.value;
     url = url + '&quantity=' + document.f.quantity.value;
     document.getElementById('link').href = url;

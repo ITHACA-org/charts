@@ -67,7 +67,16 @@ def donut_chart_v1(request):
 
 
 def pie_chart_v2(request):
-    return render(request, 'pie_chart_v2.html')
+    qdict = request.GET
+    typename = qdict['lyrname']
+    category_field = qdict['category']
+    quantity_field = qdict['quantity']
+    context = {
+        'lyrname': typename,
+        'category': category_field,
+        'quantity': quantity_field
+    }
+    return render(request, 'pie_chart_v2.html', context)
 
 
 def donut_chart_v2(request):
