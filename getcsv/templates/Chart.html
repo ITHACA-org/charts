@@ -4,69 +4,46 @@
     <meta charset="UTF-8">
     <title>Chart</title>
 </head>
-<link rel="stylesheet" type="text/css" href="/static/style.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <body>
 <h2>Create your custom graph</h2>
-<p>Step 1 - Choose a layer</p>
-<div class="dropdown">
-    <button class="dropbtn">Layers list</button>
-        <div id="myDropdown1" class="dropdown-content">
-            {% for layer in layer_list %}
-            <a>{{ layer }}</a>
-            {% endfor %}
-        </div>
-</div>
-<p>Step 2 - Choose a value field</p>
-<div class="dropdown">
-    <button onclick="myFunction()" class="dropbtn">Value field list</button>
-        <div id="myDropdown2" class="dropdown-content">
-            <a href="#field1">Field 1</a>
-            <a href="#field2">Field 2</a>
-        </div>
-</div>
-<p>Step 3 - Choose a label field</p>
-<div class="dropdown">
-    <button onclick="myFunction()" class="dropbtn">Label field list</button>
-        <div id="myDropdown3" class="dropdown-content">
-            <a href="#field1">Field 1</a>
-            <a href="#field2">Field 2</a>
-        </div>
-</div>
-<p>Step 4 - Choose a chart type</p>
-<div class="dropdown">
-    <button onclick="myFunction()" class="dropbtn">Chart type list</button>
-        <div id="myDropdown4" class="dropdown-content">
-            <a href="#piechart">Pie Chart</a>
-            <a href="#donutchart">Donut Chart</a>
-            <a href="#donutchart">Bar Chart</a>
-        </div>
-</div>
+
+<form name="f" method="GET">
+    <p>Choose a layer</p>
+    <select name="layer" onchange="update_link();update_field();">
+    {% for lyrname in layer %}
+        <option value="{{ lyrname }}">{{ lyrname }}</option>
+    {% endfor %}
+    </select>
+    <p>Choose category field</p>
+    <select name="category" onchange="update_link();">
+    {% for fieldname in fieldnames %}
+        <option value="{{ fieldname }}">{{ fieldname }}</option>
+    {% endfor %}
+    </select>
+    <p>Choose quantity field</p>
+    <select name="quantity" onchange="update_link();">
+    {% for fieldname in num_fieldnames %}
+        <option value="{{ fieldname }}">{{ fieldname }}</option>
+    {% endfor %}
+    </select>
+    <br>
+    <br>
+    <a href="/table?lyrname={{ layer }}" id="link">Build Chart</a>
+</form>
 <script>
-$(document).ready(function(){
-    //show drop down menu
-    $("button").click(function(){
-        $('[id^="myDropdown1"]').slideDown();
-    });
-
-    // hide dropdown menu
-    $(".dropdown-content").mouseleave(function(){
-        $('[id^="myDropdown1"]').hide();
-    });
-});
-
-    window.onclick = function(event){
-        if (!event.target.matches('.dropbtn')){
-            var dropdowns =  document.getElementByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++){
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')){
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
+function update_link()
+    {
+    var url = '' ;
+    url = url + '/table?lyrname=' + document.f.layer.value;
+    url = url + '&category=' + document.f.category.value;
+    url = url + '&quantity=' + document.f.quantity.value;
+    document.getElementById('link').href = url;
+    return;
     }
+function update_field(){
+    var field_url = '/table/fields?lyrname=' + document.f.layer.value;
+}
+
 </script>
 </body>
 </html>

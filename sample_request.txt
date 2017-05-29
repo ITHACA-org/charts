@@ -1,4 +1,5 @@
 127.0.0.1:8000/table?lyrname=geonode:hti_geology_geology_pap_coxetalii_2011_polygon&category=name&quantity=area
 
 127.0.0.1:8000/table?lyrname=geonode:forest_osm&category=landuse&quantity=osm_way_id
-http://127.0.0.1:8000/table/fields?lyrname=geonode:forest_osm&category=landuse&quantity=osm_way_id
+127.0.0.1:8000/table/fields?lyrname=geonode:forest_osm
+127.0.0.1:8000/table/fields?lyrname=geonode:vvff

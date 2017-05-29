@@ -8,5 +8,6 @@ urlpatterns = [url(r'^sample_csv$', views.get_csv, name='get_csv'),
                url(r'^donut_chart_v1$', views.donut_chart_v1),
                url(r'^pie_chart_v2$', views.pie_chart_v2),
                url(r'^donut_chart_v2$', views.donut_chart_v2),
-               url(r'^Chart$', views.chart)
+               url(r'^Chart$', views.chart),
+               url(r'^Chart$', views.get_fields)
                ]

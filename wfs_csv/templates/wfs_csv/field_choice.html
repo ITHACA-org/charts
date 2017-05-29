@@ -13,17 +13,19 @@
         <option value="{{ fieldname }}">{{ fieldname }}</option>
     {% endfor %}
     </select>
+    <p>Do you want to aggregates data?</p>
+    <input type="radio" name="aggregates" value="0" checked>No<br>
+    <input type="radio" name="aggregates" value="1" >Yes<br>
     <br>
+    <p>Chart type</p>
+    <select name="chart_type">
+        <option value="bar">Bar chart</option>
+        <option value="bar">Pie chart</option>
+        <option value="bar">Donut chart</option>
+    </select>
     <br>
     <a href="/table?lyrname={{ lyrname }}" id="link">Build Chart</a>
 </form>
-<script>
-function update_link()
-    {
-    var url = '/table?lyrname={{ lyrname }}';
-    url = url + '&category=' + document.f.category.value;
-    url = url + '&quantity=' + document.f.quantity.value;
-    document.getElementById('link').href = url;
-    return;
-    }
-</script>
+<div id="area_grafico"></div>
+<script src="/static/chart.js"></script>
+<script src="/static/csv.js"></script>
