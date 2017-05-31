@@ -15,7 +15,7 @@
     </select>
     <br>
     <br>
-    <a href="/charts/pie_chart_v2?lyrname={{ lyrname }}" id="link">Build Chart</a>
+    <a href="/charts" id="link">Build Chart</a>
 </form>
 <script>
 function update_link()
@@ -26,4 +26,5 @@ function update_link()
     document.getElementById('link').href = url;
     return;
     }
+update_link();
 </script>
