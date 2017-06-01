@@ -1,7 +1,15 @@
-<h1>Field choice</h1>
-<p>Choose category field</p>
+<script src="/static/chart.js"></script>
+<script src="/static/csv.js"></script>
+<script src="/static/donut.js"></script>
+<script src="/static/bar.js"></script>
+<script src="/static/pie.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<link rel="stylesheet" href="/static/index.css">
 
-<form name="f">
+<form name="f" style="float:left; height:100%; width:30%">
+    <h1>Field choice</h1>
+    <p>Choose category field</p>
     <select name="category" onchange="update_link();">
     {% for fieldname in fieldnames %}
         <option value="{{ fieldname }}">{{ fieldname }}</option>
@@ -13,19 +21,35 @@
         <option value="{{ fieldname }}">{{ fieldname }}</option>
     {% endfor %}
     </select>
-    <p>Do you want to aggregates data?</p>
-    <input type="radio" name="aggregates" value="0" checked>No<br>
-    <input type="radio" name="aggregates" value="1" >Yes<br>
-    <br>
+    <p>Do you want to summarize data?</p>
+    <input type="radio" name="aggregates" value="0" checked>Sum<br>
+    <input type="radio" name="aggregates" value="1" >Mean<br>
+    <input type="radio" name="aggregates" value="2" >Category count<br>
+    <input type="radio" name="aggregates" value="3" >Max<br>
+    <input type="radio" name="aggregates" value="4" >Min<br>
     <p>Chart type</p>
     <select name="chart_type">
-        <option value="bar">Bar chart</option>
-        <option value="bar">Pie chart</option>
-        <option value="bar">Donut chart</option>
+        <option value="0">Bar chart</option>
+        <option value="1">Pie chart</option>
+        <option value="2">Donut chart</option>
     </select>
     <br>
+    <br>
+    <input type="button" onclick="get_chart()" value="Create graph">
     <a href="/table?lyrname={{ lyrname }}" id="link">Build Chart</a>
+
 </form>
-<div id="area_grafico"></div>
-<script src="/static/chart.js"></script>
-<script src="/static/csv.js"></script>
+
+<div id="chart_area">
+</div>
+<script>
+
+function update_link(){
+    var url = '/table?lyrname={{ lyrname }}';
+    url = url + '&category=' + document.f.category.value;
+    url = url + '&quantity=' + document.f.quantity.value;
+    document.getElementById('link').href = url;
+    return;
+}
+
+</script>

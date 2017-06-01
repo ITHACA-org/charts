@@ -1,32 +1,42 @@
-function update_link()
-    {
-    var url = '/table?lyrname={{ lyrname }}';
-    url = url + '&category=' + document.f.category.value;
-    url = url + '&quantity=' + document.f.quantity.value;
-    document.getElementById('link').href = url;
-    return;
-    }
+function get_chart(){
 
-//create area for chart
-var createChartArea =  function() {
-    var chartArea = document.getElementById("area_grafico");
-    chartArea.style= "display:table;";
-};
-createChartArea();
-
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function(){
-    if (xhttp.readyState == 4 && xhttp.status == 200){
-        var csv_link = xhttp.responseURL;
-
-        replaceChart = function(){
+        // extract summary type
+        var aggregates = document.f.aggregates;
+        var agg = '';
+        var i;
+        for (i = 0; i < aggregates.length; i++){
+            if (aggregates[i].checked){
+                agg = agg + aggregates[i].value;
+            }
         }
-        barChart = function(){
-        replaceChart();
-        console.log(csv_link)
-        getCsv(csv_link,0);
+
+        // extract chart type
+        var chartType = document.f.chart_type.value;
+
+        // extract link
+        var csv_link = document.getElementById('link').href;
+
+        // extract category and quantity fieldnames
+        var string = csv_link.split("&");
+        var quantity = string[2].split("=")[1];
+        var category = string[1].split("=")[1];
+
+        //create area for chart
+        var createChartArea =  function() {
+            var chartArea = document.getElementById("chart_area");
+            chartArea.style= "display:table; float:left; height:100%; width:70%";
         };
 
+        // update chart
+        var replaceChart = function(){
+            doc_chart = document.getElementById('chart_area');
+            if(doc_chart.childElementCount >= 1){
+                 doc_chart.removeChild(doc_chart.childNodes[1]);
+                 createChartArea();
+                 };
+        };
 
-        }
-}
+        replaceChart();
+        getCsv(csv_link, category, quantity, agg, chartType);
+
+};

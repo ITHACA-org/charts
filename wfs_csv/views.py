@@ -54,7 +54,7 @@ def get_wfs_csv(request):
         'typename':typename,
         'propertyName':category_field + ',' + quantity_field,
         'outputFormat':'csv',
-        'maxFeatures':'10'
+        'maxFeatures':'1000'
     })
     
     wfs_request = urllib.urlopen('http://localhost/geoserver/ows?%s' % params)
