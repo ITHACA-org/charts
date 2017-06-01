@@ -1,4 +1,4 @@
-<script src="/static/chart.js"></script>
+<body onload="update_link();">
 <script src="/static/csv.js"></script>
 <script src="/static/donut.js"></script>
 <script src="/static/bar.js"></script>
@@ -7,26 +7,28 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 <link rel="stylesheet" href="/static/index.css">
 
-<form name="f" style="float:left; height:100%; width:30%">
+<form name="f" style="float:left; height:100%; width:30%" onchange="update_link();">
     <h1>Field choice</h1>
     <p>Choose category field</p>
-    <select name="category" onchange="update_link();">
+    <select name="category" >
     {% for fieldname in fieldnames %}
         <option value="{{ fieldname }}">{{ fieldname }}</option>
     {% endfor %}
     </select>
     <p>Choose quantity field</p>
-    <select name="quantity" onchange="update_link();">
+    <select name="quantity" onload="update_link();">
     {% for fieldname in num_fieldnames %}
         <option value="{{ fieldname }}">{{ fieldname }}</option>
     {% endfor %}
     </select>
     <p>Do you want to summarize data?</p>
-    <input type="radio" name="aggregates" value="0" checked>Sum<br>
-    <input type="radio" name="aggregates" value="1" >Mean<br>
-    <input type="radio" name="aggregates" value="2" >Category count<br>
-    <input type="radio" name="aggregates" value="3" >Max<br>
-    <input type="radio" name="aggregates" value="4" >Min<br>
+    <select name="aggregates">
+        <option value="0">Sum</option>
+        <option value="1">Mean</option>
+        <option value="2">Category count</option>
+        <option value="3">Max</option>
+        <option value="4">Min</option>
+    </select>
     <p>Chart type</p>
     <select name="chart_type">
         <option value="0">Bar chart</option>
@@ -36,20 +38,48 @@
     <br>
     <br>
     <input type="button" onclick="get_chart()" value="Create graph">
-    <a href="/table?lyrname={{ lyrname }}" id="link">Build Chart</a>
+    <a href="/table?lyrname={{ lyrname }}" id="link">Download CSV</a>
 
 </form>
 
 <div id="chart_area">
 </div>
 <script>
+var category, quantity, agg, chart_type, csv_url;
 
 function update_link(){
-    var url = '/table?lyrname={{ lyrname }}';
-    url = url + '&category=' + document.f.category.value;
-    url = url + '&quantity=' + document.f.quantity.value;
-    document.getElementById('link').href = url;
+    csv_url = '/table?lyrname={{ lyrname }}';
+    category = document.f.category.value;
+    csv_url = csv_url + '&category=' + category;
+    quantity = document.f.quantity.value;
+    csv_url = csv_url + '&quantity=' + quantity;
+    document.getElementById('link').href = csv_url;
+    agg = document.f.aggregates.value;
+    chart_type = document.f.chart_type.value;
     return;
 }
 
+function get_chart(){
+//create area for chart
+var createChartArea =  function() {
+    var chartArea = document.getElementById("chart_area");
+    chartArea.style= "display:table; float:left; height:100%; width:70%";
+};
+
+// update chart
+    var replaceChart = function(){
+        doc_chart = document.getElementById('chart_area');
+        if(doc_chart.childElementCount >= 1){
+             doc_chart.removeChild(doc_chart.childNodes[1]);
+             createChartArea();
+        };
+};
+
+createChartArea();
+replaceChart();
+getCsv(csv_url, category, quantity, agg, chart_type);
+}
+
+
 </script>
+</body>
